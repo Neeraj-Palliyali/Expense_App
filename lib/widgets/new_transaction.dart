@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'user_transaction.dart';
+
 
 class NewTransaction extends StatelessWidget {
   final Function addTx;
@@ -10,9 +10,7 @@ class NewTransaction extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-        elevation: 5,
-        child: Container(
+    return Container(
           padding: EdgeInsets.all(10),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.end,
@@ -46,6 +44,6 @@ class NewTransaction extends StatelessWidget {
               )
             ],
           ),
-        ));
+        );
   }
 }

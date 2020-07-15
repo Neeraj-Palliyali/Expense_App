@@ -22,21 +22,21 @@ class MyHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text("Flutter App"),
-        ),
-        body:  ListView(
-            children: <Widget>[
-              Card(
-                color: Colors.blue,
-                child: Container(
-                  width: double.infinity,
-                  child: Text("Chart"),
-                ),
-              ),
-              UserTransactions(),
-            ],
+      appBar: AppBar(
+        title: Text("Flutter App"),
+      ),
+      body: ListView(
+        children: <Widget>[
+          Card(
+            color: Colors.blue,
+            child: Container(
+              width: double.infinity,
+              child: Text("Chart"),
+            ),
           ),
-        );
+          UserTransactions(),
+        ],
+      ),
+    );
   }
 }
