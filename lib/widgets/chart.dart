@@ -5,16 +5,16 @@ import 'package:intl/intl.dart';
 import '../models/transaction.dart';
 
 class Chart extends StatelessWidget {
-
   final List<Transaction> recentTransactions;
 
   Chart(this.recentTransactions);
 
-  double get totalSpending{
-    return groupedTranscationValues.fold(0.0,(sum, item){
-      return sum+item['amount'];
+  double get totalSpending {
+    return groupedTranscationValues.fold(0.0, (sum, item) {
+      return sum + item['amount'];
     });
   }
+
   List<Map<String, Object>> get groupedTranscationValues {
     return List.generate(
       7,
@@ -22,7 +22,7 @@ class Chart extends StatelessWidget {
         final weekDay = DateTime.now().subtract(
           Duration(days: index),
         );
-        double totalSum=0.0;
+        double totalSum = 0.0;
 
         for (var i = 0; i < recentTransactions.length; i++) {
           if (recentTransactions[i].date.day == weekDay.day &&
@@ -32,7 +32,7 @@ class Chart extends StatelessWidget {
           }
         }
         return {
-          'day': DateFormat.E().format(weekDay).substring(0,1),
+          'day': DateFormat.E().format(weekDay).substring(0, 1),
           'amount': totalSum,
         };
       },
@@ -46,8 +46,14 @@ class Chart extends StatelessWidget {
       elevation: 6,
       margin: EdgeInsets.all(20),
       child: Row(
-        children: groupedTranscationValues.map((data){
-          return ChartBar(data['day'], data['amount'], (data['amount']as double)/totalSpending);
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: groupedTranscationValues.map((data) {
+          return ChartBar(
+              data['day'],
+              data['amount'],
+              totalSpending == 0.0
+                  ? 0.0
+                  : (data['amount'] as double) / totalSpending);
         }).toList(),
       ),
     );
