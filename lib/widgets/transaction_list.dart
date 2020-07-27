@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../models/transaction.dart';
-import 'package:intl/intl.dart';
+import 'transaction_item.dart';
 
 class TransactionList extends StatelessWidget {
   final List<Transaction> transactions;
@@ -30,40 +30,14 @@ class TransactionList extends StatelessWidget {
               ],
             );
           })
-        : ListView.builder(
-            itemBuilder: (ctx, index) {
-              return Card(
-                margin: EdgeInsets.symmetric(vertical: 8, horizontal: 4),
-                elevation: 5,
-                child: ListTile(
-                  leading: Padding(
-                    padding: EdgeInsets.all(4),
-                    child: CircleAvatar(
-                      radius: 49,
-                      child: Text('\$${transactions[index].amount}'),
-                    ),
-                  ),
-                  title: Text(
-                    transactions[index].title,
-                    style: Theme.of(context).textTheme.headline6,
-                  ),
-                  subtitle: Text(
-                    DateFormat.yMMMMd().format(transactions[index].date),
-                  ),
-                  trailing: MediaQuery.of(context).size.width > 360
-                      ? FlatButton.icon(
-                          textColor: Colors.green,
-                          onPressed: () => deleteTx(transactions[index].id),
-                          icon: Icon(Icons.delete),
-                          label: Text('Delete'))
-                      : IconButton(
-                          icon: Icon(Icons.delete),
-                          color: Colors.green,
-                          onPressed: () => deleteTx(transactions[index].id)),
-                ),
-              );
-            },
-            itemCount: transactions.length,
+        : ListView(
+            children: transactions
+                .map((tx) => TransactionItem(
+                      key: ValueKey(tx.id),
+                      transaction: tx,
+                      deleteTx: deleteTx,
+                    ))
+                .toList(),
           );
   }
 }
